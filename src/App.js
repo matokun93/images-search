@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const App = () => {
   const [photos, setPhotos] = useState([])
   const openPhoto = (url) => window.open(url)
+  const [isLoading, setIsLoading] = useState(true)
 
   return (
     <div>
@@ -17,13 +18,17 @@ const App = () => {
         <Formik
           initialValues={{ search: '' }}
           onSubmit={async values => {
-            const response = await fetch(`https://api.unsplash.com/search/photos?per_page=20&query=${values.search}`, {
+            setIsLoading(true)
+            await fetch(`https://api.unsplash.com/search/photos?per_page=20&query=${values.search}`, {
               headers: {
                 'Authorization': 'Client-ID rXPkNgsB29-uynn0vY_HuzFyCETLXKVj42CELIlyQBs'
               }
             })
-            const data = await response.json()
-            setPhotos(data.results)
+              .then(response => response.json())
+              .then(response => setPhotos(response.results))
+              .then(setIsLoading(false))
+            // const data = await response.json()
+            // setPhotos(data.results)
           }}
         >
           <Form>
@@ -37,14 +42,20 @@ const App = () => {
         </Formik>
       </header>
       <div className='container'>
-        <div className='center'>
-          {photos.map(photo =>
-            <article key={photo.id} onClick={() => openPhoto(photo.links.html)}>
-              <img src={photo.urls.regular} />
-              <p> {[photo.description, photo.alt_description].join('-')} </p>
-            </article>
-          )}
-        </div>
+        {
+          isLoading
+            ? <div className='loading-screen'>
+              <h2>Cargando imágenes...</h2>
+            </div>
+            : <div className='center'>
+              {photos.map(photo =>
+                <article key={photo.id} onClick={() => openPhoto(photo.links.html)}>
+                  <img src={photo.urls.regular} />
+                  <p> {[photo.description, photo.alt_description].join('-')} </p>
+                </article>
+              )}
+            </div>
+        }
       </div>
     </div >
   )
