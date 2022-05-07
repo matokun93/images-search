@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgb(33, 33, 33);
+}
+
+.center {
+  width: 1200px;
+  column-count: 3;
+}
+
+@media (max-width: 1205px) {
+  .center {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 800px) {
+  .center {
+    column-count: 1;
+  }
+}

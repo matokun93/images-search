@@ -1,0 +1,48 @@
+html {
+  box-sizing: content-box;
+}
+
+html>* {
+  box-sizing: inherit;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(53, 53, 53);
+  padding: 22px;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+
+header input {
+  outline: none;
+  border: solid 1px #eee;
+  padding: 10px 5px;
+  border-radius: 4px;
+}
+
+.container {
+  text-align: center;
+}
+
+.submit-button {
+  border: none;
+  background-color: transparent;
+  color: #eee;
+  font-size: 1.2rem;
+  padding: 0.3rem 1rem;
+}
+
+.submit-button:hover {
+  cursor: pointer;
+}
+
+.form-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
