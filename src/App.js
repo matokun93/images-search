@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const App = () => {
   const [photos, setPhotos] = useState([])
   const openPhoto = (url) => window.open(url)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
   return (
     <div>
