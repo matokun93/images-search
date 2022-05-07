@@ -5,6 +5,7 @@ import './Styles/content.css'
 import './Styles/article.css'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios'
 
 
 const App = () => {
@@ -15,21 +16,44 @@ const App = () => {
   return (
     <div>
       <header>
-        <Formik
+        {/* <Formik
           initialValues={{ search: '' }}
           onSubmit={async values => {
-            setIsLoading(true)
-            await fetch(`https://api.unsplash.com/search/photos?per_page=20&query=${values.search}`, {
+            const response = await fetch(`https://api.unsplash.com/search/photos?per_page=20&query=${values.search}`, {
+              headers: {
+                'Authorization': 'Client-ID rXPkNgsB29-uynn0vY_HuzFyCETLXKVj42CELIlyQBs',
+              }
+            })
+            const data = await response.json()
+            setPhotos(data.results)
+          }}
+        > */}
+        {/* <Formik
+          initialValues={{ search: '' }}
+          onSubmit={
+            async values => await axios.get(`https://api.unsplash.com/search/photos?per_page=20&query=${values.search}`, {
               headers: {
                 'Authorization': 'Client-ID rXPkNgsB29-uynn0vY_HuzFyCETLXKVj42CELIlyQBs'
               }
             })
-              .then(response => response.json())
-              .then(response => setPhotos(response.results))
+              .then(response => setPhotos(response.data.results))
               .then(setIsLoading(false))
-            // const data = await response.json()
-            // setPhotos(data.results)
-          }}
+          }
+        > */}
+        <Formik
+          initialValues={{ search: '' }}
+          onSubmit={
+            async (values) => {
+              setIsLoading(true)
+              await axios.get(`https://api.unsplash.com/search/photos?per_page=20&query=${values.search}`, {
+                headers: {
+                  'Authorization': 'Client-ID rXPkNgsB29-uynn0vY_HuzFyCETLXKVj42CELIlyQBs'
+                }
+              })
+                .then(response => setPhotos(response.data.results))
+                .then(setIsLoading(false))
+            }
+          }
         >
           <Form>
             <div className='form-content'>
